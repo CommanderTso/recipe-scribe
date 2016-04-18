@@ -26,7 +26,7 @@ feature "User inputs a recipe" do
     click_button "Add Recipe"
 
     expect(page).to have_content title
-    expect(page).to have_content("Your recipe has been saved!")
+    expect(page).to have_content "Your recipe has been saved!"
   end
 
   scenario "User leaves out recipe title" do
@@ -35,7 +35,7 @@ feature "User inputs a recipe" do
 
     click_button "Add Recipe"
 
-    expect(page).to have_content("Add a new recipe here:")
-    expect(page).to have_content("Title can't be blank")
+    expect(page).to have_content "Add a new recipe here:"
+    expect(page).to have_content "Title can't be blank"
   end
 end
