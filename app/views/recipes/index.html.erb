@@ -1,0 +1,17 @@
+<% if !@recipes.empty? %>
+  <div class="row">
+    <ul class="accordion" data-accordion data-allow-all-closed="true">
+      <% @recipes.each do |recipe| %>
+        <li class="accordion-item" data-accordion-item>
+          <a href="#" class="accordion-title"><%= recipe.title %></a>
+          <div class="accordion-content" data-tab-content >
+            <h5>Instructions:</h5>
+            <p><%= recipe.instructions %></p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <%= link_to "Let's enter your first recipe!", new_recipe_path %>
+<% end %>
