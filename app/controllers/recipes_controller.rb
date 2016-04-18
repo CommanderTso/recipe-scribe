@@ -17,11 +17,9 @@ class RecipesController < ApplicationController
       flash.now[:error] = @recipe.errors.full_messages.join(", ")
       render :new
     end
-
   end
 
   def recipe_params
     params.require(:recipe).permit(:title, :instructions)
   end
-
 end

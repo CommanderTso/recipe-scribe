@@ -10,21 +10,22 @@ require 'rails_helper'
 # - User is messaged if the entry succeeds
 # - User is messaged with informative errors if the entry fails.
 
-
-
 feature "User inputs a recipe" do
   scenario "User inputs a recipe" do
+    title = "Title of a Recipe"
+    instructions = "Instructions on how to make it!"
+
     visit root_path
     page.find('#add_recipe').click
 
     expect(page).to have_content "Add a new recipe here:"
 
-    fill_in "Title", with: "Title of a Recipe"
-    fill_in "Instructions", with: "Instructions on how to make it!"
+    fill_in "Title", with: title
+    fill_in "Instructions", with: instructions
 
     click_button "Add Recipe"
 
-    expect(page).to have_content("Title of a Recipe")
+    expect(page).to have_content title
     expect(page).to have_content("Your recipe has been saved!")
   end
 
@@ -36,6 +37,5 @@ feature "User inputs a recipe" do
 
     expect(page).to have_content("Add a new recipe here:")
     expect(page).to have_content("Title can't be blank")
-
   end
 end
