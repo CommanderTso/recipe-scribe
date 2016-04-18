@@ -11,8 +11,31 @@ require 'rails_helper'
 # - User is messaged with informative errors if the entry fails.
 
 feature "User inputs a recipe" do
+  scenario "User inputs a recipe" do
+    title = "Title of a Recipe"
+    instructions = "Instructions on how to make it!"
 
-  scenario "placeholder tests to make sure CI works" do
-    expect(true).to be_truthy
+    visit root_path
+    page.find('#add_recipe').click
+
+    expect(page).to have_content "Add a new recipe here:"
+
+    fill_in "Title", with: title
+    fill_in "Instructions", with: instructions
+
+    click_button "Add Recipe"
+
+    expect(page).to have_content title
+    expect(page).to have_content("Your recipe has been saved!")
+  end
+
+  scenario "User leaves out recipe title" do
+    visit root_path
+    page.find('#add_recipe').click
+
+    click_button "Add Recipe"
+
+    expect(page).to have_content("Add a new recipe here:")
+    expect(page).to have_content("Title can't be blank")
   end
 end
