@@ -58,8 +58,8 @@ $foundation-palette: (
   // warning: #ffae00,
   // alert: #ec5840,
   primary: #191919,
-  secondary: #DFE2DB,
-  tertiary: #FFF056,
+  secondary: #dfe2db,
+  tertiary: #fff056,
   success: #3adb76,
   warning: #ffae00,
   alert: #ec5840,
@@ -111,7 +111,7 @@ $block-grid-max: 8;
 // 4. Base Typography
 // ------------------
 
-$header-font-family: 'Abril Fatface';
+$header-font-family: "Abril Fatface";
 $header-font-weight: $global-weight-normal;
 $header-font-style: normal;
 $font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
