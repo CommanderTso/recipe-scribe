@@ -1,4 +1,4 @@
-require 'rails-helper'
+require 'rails_helper'
 
 # As a user, I want to input recipes.
 #
@@ -10,4 +10,9 @@ require 'rails-helper'
 # - User is messaged if the entry succeeds
 # - User is messaged with informative errors if the entry fails.
 
-feature 
+feature "User inputs a recipe" do
+
+  scenario "placeholder tests to make sure CI works" do
+    expect(true).to be_truthy
+  end
+end
