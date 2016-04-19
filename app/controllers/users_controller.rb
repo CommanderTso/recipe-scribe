@@ -1,0 +1,32 @@
+class UsersController < ApplicationController
+  def new
+  end
+
+  def create
+    # user = User.new(user_params)
+    # if user.save
+    #   session[:user_id] = user.id
+    #   redirect_to '/'
+    # else
+    #   redirect_to '/signup'
+    # end
+
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:notice] = "Welcome to Recipe Scribe!"
+      redirect_to root_path
+    else
+      error_message = @user.errors.full_messages.join(", ")
+      error_message += "."
+      flash.now[:error] = error_message
+      render :new
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+end

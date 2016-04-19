@@ -1,4 +1,15 @@
+user_1 = User.find_by(email: "abc@abc.com")
+unless user_1.present?
+  user_1 = User.create(
+    name: "Sharky Fitzgerald",
+    email: "abc@abc.com",
+    password: "123123123",
+    password_confirmation: "123123123"
+  )
+end
+
 Recipe.find_or_create_by(
+  user: user_1,
   title: "My Old School Baked Ziti",
   instructions: %(A few notes: To make this without meat, as I’m not personally
     into meat substitutes, I would use a pound or so of sliced mushrooms instead
