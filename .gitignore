@@ -13,3 +13,4 @@
 /tmp
 .coveralls.yml
 /coverage
+/config/settings.yml
