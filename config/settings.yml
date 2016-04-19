@@ -1,0 +1,11 @@
+default: &default
+  cloud_storage:
+    bucket: <%= ENV["GOOGLE_BUCKET_NAME"] %>
+    access_key_id: <%= ENV["GOOGLE_ACCESS_KEY"] %>
+    secret_access_key: <%= ENV["GOOGLE_SECRET_ACCESS_KEY"] %>
+
+development:
+  <<: *default
+
+production:
+  <<: *default

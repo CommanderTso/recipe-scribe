@@ -11,8 +11,11 @@
         <div class="small-2 columns"><%= f.label :instructions, class: "right inline" %></div>
         <div class="small-10 columns"><%= f.text_area :instructions %></div>
       </div>
+      <div class="row">
+        <div class="small-2 columns"><%= f.label :recipe_image %></div>
+        <div class="small-10 columns"><%= f.file_field :recipe_image %></div>
+      </div>
       <%= f.submit "Add Recipe" %>
     </div>
   </div>
-
 <% end %>

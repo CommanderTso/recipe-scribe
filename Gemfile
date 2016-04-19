@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', groups: [:development, :test]
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
@@ -11,6 +12,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'foundation-rails'
 gem 'coveralls', require: false
+gem 'fog-google'
+gem 'google-api-client'
+gem 'gcloud'
 
 group :development, :test do
   gem 'pry-rails'
