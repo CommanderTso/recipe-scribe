@@ -2,13 +2,15 @@ require 'rails_helper'
 
 # As a user, I want to input recipes.
 #
-# **Acceptance Criteria:**
+# Acceptance Criteria:
 # - User can input a recipe with:
 # -- a title (required)
 # -- one or more ingredients (required)
 # -- instructions (optional)
 # - User is messaged if the entry succeeds
 # - User is messaged with informative errors if the entry fails.
+# - Recipes can be created with images attached
+# - Images are displayed with the rest of the recipe info
 
 feature "User inputs a recipe" do
   scenario "User inputs a recipe" do
@@ -78,11 +80,32 @@ feature "with Recipe Images" do
     expect(recipe.title).to eq "A Tale of Two Bagels"
     expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test.txt"
 
-    binding.pry
     expect(StorageBucket.files.all.count).to eq 1
     file = StorageBucket.files.first
     expect(file.key).to eq "recipe_images/#{recipe.id}/test.txt"
     expect(file.body).to include "A test file."
+  end
+
+  scenario "Recipe image has a space in its file name" do
+    visit  new_recipe_path
+
+    within "form.new_recipe" do
+      fill_in "Title", with: "A Tale of Two Bagels"
+      attach_file "Recipe image", "spec/resources/test file three.txt"
+      click_button "Add Recipe"
+    end
+
+    expect(page).to have_content "Your recipe has been saved!"
+    expect(Recipe.count).to eq 1
+
+    recipe = Recipe.first
+    expect(recipe.title).to eq "A Tale of Two Bagels"
+    expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test_file_three.txt"
+
+    expect(StorageBucket.files.all.count).to eq 1
+    file = StorageBucket.files.first
+    expect(file.key).to eq "recipe_images/#{recipe.id}/test_file_three.txt"
+    expect(file.body).to include "A third test file!"
   end
 
   xscenario "Editing a recipe's image" do
