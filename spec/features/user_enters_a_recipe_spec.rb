@@ -52,8 +52,10 @@ feature "with Recipe Images" do
   end
 
   scenario "Display recipe images in a recipe" do
-    recipe = Recipe.create! title: "A Tale of Two Bagels",
+    recipe = Recipe.create!(
+      title: "A Tale of Two Bagels",
       recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
+    )
 
     visit root_path
 
@@ -109,8 +111,10 @@ feature "with Recipe Images" do
   end
 
   xscenario "Editing a recipe's image" do
-    recipe = Recipe.create! title: "A Tale of Two Bagels",
-                        recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
+    recipe = Recipe.create!(
+      title: "A Tale of Two Bagels",
+      recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
+    )
 
     visit root_path
     click_link "A Tale of Two Bagels"
@@ -119,25 +123,27 @@ feature "with Recipe Images" do
     click_button "Save"
 
     expect(page).to have_content "Updated Recipe"
-    expect(StorageBucket.files.get "recipe_images/#{recipe.id}/test-2.txt").to be_present
-    expect(StorageBucket.files.get "recipe_images/#{recipe.id}/test.txt").to be_nil
+    expect(StorageBucket.files.get("recipe_images/#{recipe.id}/test-2.txt")).to be_present
+    expect(StorageBucket.files.get("recipe_images/#{recipe.id}/test.txt")).to be_nil
 
     recipe.reload
     expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test-2.txt"
   end
 
   xscenario "Deleting a recipe with an image" do
-    recipe = Recipe.create! title: "A Tale of Two Bagels",
-                        recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
+    recipe = Recipe.create!(
+      title: "A Tale of Two Bagels",
+      recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
+    )
 
     image_key = "recipe_images/#{recipe.id}/test.txt"
-    expect(StorageBucket.files.get image_key).to be_present
+    expect(StorageBucket.files.get(image_key)).to be_present
 
     visit root_path
     click_link "A Tale of Two Bagels"
     click_link "Delete Recipe"
 
-    expect(Recipe.exists? recipe.id).to be false
-    expect(StorageBucket.files.get image_key).to be_nil
+    expect(Recipe.exists?(recipe.id)).to be false
+    expect(StorageBucket.files.get(image_key)).to be_nil
   end
 end
