@@ -52,10 +52,7 @@ feature "with Recipe Images" do
   end
 
   scenario "Display recipe images in a recipe" do
-    recipe = Recipe.create!(
-      title: "A Tale of Two Bagels",
-      recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
-    )
+    recipe = create(:recipe_with_image)
 
     visit root_path
 
@@ -111,10 +108,7 @@ feature "with Recipe Images" do
   end
 
   xscenario "Editing a recipe's image" do
-    recipe = Recipe.create!(
-      title: "A Tale of Two Bagels",
-      recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
-    )
+    recipe = create(:recipe_with_image)
 
     visit root_path
     click_link "A Tale of Two Bagels"
@@ -131,10 +125,7 @@ feature "with Recipe Images" do
   end
 
   xscenario "Deleting a recipe with an image" do
-    recipe = Recipe.create!(
-      title: "A Tale of Two Bagels",
-      recipe_image: Rack::Test::UploadedFile.new("spec/resources/test.txt")
-    )
+    recipe = create(:recipe_with_image)
 
     image_key = "recipe_images/#{recipe.id}/test.txt"
     expect(StorageBucket.files.get(image_key)).to be_present
