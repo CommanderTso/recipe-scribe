@@ -27,7 +27,7 @@ end
 feature "User logs into an account" do
   scenario "User logs into an account" do
     user = create(:user)
-    recipe = create(:recipe)
+    recipe = create(:recipe, user: user)
 
     visit root_path
 
@@ -41,10 +41,6 @@ feature "User logs into an account" do
     expect(page).to have_content recipe.title
     expect(page).to have_content recipe.instructions
     expect(page).to have_content "Signed in as #{user.name}"
-  end
-
-  xscenario "User only sees their own recipes once logged in" do
-
   end
 end
 
@@ -64,8 +60,8 @@ feature "User creates an account" do
     fill_in "user[password_confirmation]", with: password_confirm
     click_button "Submit"
 
-    expect(page).to have_content recipe.title
-    expect(page).to have_content recipe.instructions
+    expect(page).to_not have_content recipe.title
+    expect(page).to_not have_content recipe.instructions
     expect(page).to have_content "Signed in as #{name}"
   end
 end

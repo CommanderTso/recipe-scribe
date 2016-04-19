@@ -1,6 +1,8 @@
 class Recipe < ActiveRecord::Base
   validates :title, presence: true
 
+  belongs_to :user
+
   attr_accessor :recipe_image
 
   private

@@ -48,17 +48,18 @@ feature "User inputs a recipe" do
   end
 end
 
-feature "with Recipe Images" do
+feature "User adds an image to recipe" do
   before(:each) do
     StorageBucket.files.each do |file|
       file.destroy
     end
 
-    login_user(create(:user))
+    @user = create(:user)
+    login_user(@user)
   end
 
   scenario "Display recipe images in a recipe" do
-    recipe = create(:recipe_with_image)
+    recipe = create(:recipe_with_image, user: @user)
 
     visit root_path
 
@@ -114,7 +115,7 @@ feature "with Recipe Images" do
   end
 
   xscenario "Editing a recipe's image" do
-    recipe = create(:recipe_with_image)
+    recipe = create(:recipe_with_image, user: @user)
 
     visit root_path
     click_link recipe.title

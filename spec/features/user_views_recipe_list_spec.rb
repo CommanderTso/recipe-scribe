@@ -8,8 +8,9 @@ require 'rails_helper'
 
 feature "User views their recipes" do
   scenario "User views the recipe index" do
-    login_user(create(:user))
-    recipe = create(:recipe)
+    user = create(:user)
+    login_user(user)
+    recipe = create(:recipe, user: user)
 
     visit root_path
 
@@ -17,12 +18,17 @@ feature "User views their recipes" do
     expect(page).to have_content recipe.instructions
   end
 
-  xscenario "User sees only recipes that belong to them" do
+  scenario "User sees only recipes that belong to them" do
     user_1 = create(:user, email: "scott@mac.com")
     recipe_1 = create(:recipe, user: user_1)
 
     user_2 = create(:user, email: "edna@cats.com")
-    recipe_2 = create(:recipe, user: user_2)
+    recipe_2 = create(
+      :recipe,
+      user: user_2,
+      title: "Different Title",
+      instructions: "Different instructions."
+    )
 
     login_user(user_1)
 

@@ -3,12 +3,24 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      session[:user_id] = user.id
-      redirect_to '/'
+    # user = User.new(user_params)
+    # if user.save
+    #   session[:user_id] = user.id
+    #   redirect_to '/'
+    # else
+    #   redirect_to '/signup'
+    # end
+
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:notice] = "Welcome to Recipe Scribe!"
+      redirect_to root_path
     else
-      redirect_to '/signup'
+      error_message = @user.errors.full_messages.join(", ")
+      error_message += "."
+      flash.now[:error] = error_message
+      render :new
     end
   end
 
