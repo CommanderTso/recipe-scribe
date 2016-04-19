@@ -1,0 +1,23 @@
+<div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text"><h4><%= link_to "Recipe Scribe", root_path %></h4></li>
+      <li><%= link_to "Add Recipe", new_recipe_path, id: "add_recipe" %></li>
+      <li><a href="#">Two</a></li>
+      <li><a href="#">Three</a></li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <% if current_user %>
+      Signed in as <%= current_user.name %> | <%= link_to "Logout", logout_path %>
+    <% else %>
+      <%= link_to 'Login', login_path %> | <%= link_to 'Signup', signup_path %>
+    <% end %>
+  </div>
+</div>

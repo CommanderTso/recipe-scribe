@@ -13,6 +13,10 @@ require 'rails_helper'
 # - Images are displayed with the rest of the recipe info
 
 feature "User inputs a recipe" do
+  before(:each) do
+    login_user(create(:user))
+  end
+
   scenario "User inputs a recipe" do
     title = "Title of a Recipe"
     instructions = "Instructions on how to make it!"
@@ -49,6 +53,8 @@ feature "with Recipe Images" do
     StorageBucket.files.each do |file|
       file.destroy
     end
+
+    login_user(create(:user))
   end
 
   scenario "Display recipe images in a recipe" do
@@ -56,7 +62,7 @@ feature "with Recipe Images" do
 
     visit root_path
 
-    expect(page).to have_content "A Tale of Two Bagels"
+    expect(page).to have_content recipe.title
     expect(page).to have_css "img[src='#{recipe.image_url}']"
   end
 
@@ -111,7 +117,7 @@ feature "with Recipe Images" do
     recipe = create(:recipe_with_image)
 
     visit root_path
-    click_link "A Tale of Two Bagels"
+    click_link recipe.title
     click_link "Edit Recipe"
     attach_file "Recipe image", "spec/resources/test-2.txt"
     click_button "Save"
@@ -131,7 +137,7 @@ feature "with Recipe Images" do
     expect(StorageBucket.files.get(image_key)).to be_present
 
     visit root_path
-    click_link "A Tale of Two Bagels"
+    click_link recipe.title
     click_link "Delete Recipe"
 
     expect(Recipe.exists?(recipe.id)).to be false

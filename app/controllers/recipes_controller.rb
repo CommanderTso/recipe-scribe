@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_filter :authorize
+
   def index
     @recipes = Recipe.all
   end

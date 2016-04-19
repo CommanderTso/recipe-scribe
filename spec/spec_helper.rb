@@ -1,7 +1,18 @@
 require 'coveralls'
 Coveralls.wear!
 
+module LoginHelper
+  def login_user(user)
+    visit login_path
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    click_button 'Submit'
+  end
+end
+
 RSpec.configure do |config|
+  config.include LoginHelper
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
