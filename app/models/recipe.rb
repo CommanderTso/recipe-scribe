@@ -3,11 +3,6 @@ class Recipe < ActiveRecord::Base
 
   attr_accessor :recipe_image
 
-  # def recipe_image=(image)
-  #   image.original_filename.gsub(/[^0-9A-Z]/i, '_')
-  #   @recipe_image = image
-  # end
-
   private
 
   after_create :upload_image, if: :recipe_image
@@ -17,7 +12,7 @@ class Recipe < ActiveRecord::Base
       # TODO - Google's tutorial project does no sanitization, and spaces
       # cause the filename to get mangled & the record to fail to save
       # This fixes it, need to check if there's still a security issue
-      key: "recipe_images/#{id}/#{recipe_image.original_filename.gsub(" ", '_')}",
+      key: "recipe_images/#{id}/#{recipe_image.original_filename.tr(' ', '_')}",
       body: recipe_image.read,
       public: true
     )

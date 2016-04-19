@@ -19,7 +19,6 @@ module RecipeScribe
     config.x.settings = Rails.application.config_for :settings
     config.x.fog_dir = 'recipe-scribe'
 
-
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end

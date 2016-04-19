@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-    
+
     if @recipe.save
       flash[:notice] = "Your recipe has been saved!"
       redirect_to root_path
