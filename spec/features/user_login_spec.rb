@@ -32,14 +32,12 @@ feature "User logs into an account" do
     visit root_path
 
     expect(page).to_not have_content recipe.title
-    expect(page).to_not have_content recipe.instructions
 
     fill_in "email", with: user.email
     fill_in "password", with: user.password
     click_button "Submit"
 
     expect(page).to have_content recipe.title
-    expect(page).to have_content recipe.instructions
     expect(page).to have_content "Signed in as #{user.name}"
   end
 end
@@ -61,7 +59,6 @@ feature "User creates an account" do
     click_button "Submit"
 
     expect(page).to_not have_content recipe.title
-    expect(page).to_not have_content recipe.instructions
     expect(page).to have_content "Signed in as #{name}"
   end
 end
