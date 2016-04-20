@@ -1,16 +1,10 @@
 require 'rails_helper'
 
-# As a user, I want to input recipes.
+# As a user, I want to delete my recipes.
 #
 # Acceptance Criteria:
-# - User can input a recipe with:
-# -- a title (required)
-# -- one or more ingredients (required)
-# -- instructions (optional)
-# - User is messaged if the entry succeeds
-# - User is messaged with informative errors if the entry fails.
-# - Recipes can be created with images attached
-# - Images are displayed with the rest of the recipe info
+# - Show page has a delete button
+# - Deleting a recipe cascades to other necessary records
 
 feature "User deletes a recipe" do
   before(:each) do
