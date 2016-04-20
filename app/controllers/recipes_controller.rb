@@ -13,6 +13,26 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def edit
+    @recipe = Recipe.find(params[:id])
+    unless current_user == @recipe.user
+      flash[:error] = "You are not authorized to edit this recipe!"
+      redirect_to root_path
+    end
+  end
+
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+      flash[:notice] = "Recipe updated!"
+      redirect_to recipe_path(@recipe)
+    else
+      flash[:error] = get_errors(@recipe)
+      render :edit
+    end
+
+  end
+
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user = current_user
@@ -21,7 +41,7 @@ class RecipesController < ApplicationController
       flash[:notice] = "Your recipe has been saved!"
       redirect_to root_path
     else
-      flash.now[:error] = @recipe.errors.full_messages.join(", ")
+      flash.now[:error] = get_errors(@recipe)
       render :new
     end
   end

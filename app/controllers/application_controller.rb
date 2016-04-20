@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
   def authorize
     redirect_to login_path unless current_user
   end
+
+  def get_errors(erroneous_object)
+    error_message = erroneous_object.errors.full_messages.join(", ")
+    error_message += "."
+    error_message
+  end
 end
