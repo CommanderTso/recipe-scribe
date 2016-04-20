@@ -59,7 +59,7 @@ feature "User adds an image to recipe" do
   end
 
   scenario "Display recipe images in a recipe" do
-    recipe = create(:recipe_with_image, user: @user)
+    recipe = create(:recipe_with_fake_image, user: @user)
 
     visit root_path
 
@@ -115,7 +115,7 @@ feature "User adds an image to recipe" do
   end
 
   xscenario "Editing a recipe's image" do
-    recipe = create(:recipe_with_image, user: @user)
+    recipe = create(:recipe_with_fake_image, user: @user)
 
     visit root_path
     click_link recipe.title
@@ -132,7 +132,7 @@ feature "User adds an image to recipe" do
   end
 
   xscenario "Deleting a recipe with an image" do
-    recipe = create(:recipe_with_image)
+    recipe = create(:recipe_with_fake_image)
 
     image_key = "recipe_images/#{recipe.id}/test.txt"
     expect(StorageBucket.files.get(image_key)).to be_present

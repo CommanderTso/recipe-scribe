@@ -7,8 +7,11 @@ FactoryGirl.define do
     user
   end
 
-  factory :recipe_with_image, parent: :recipe do
+  factory :recipe_with_fake_image, parent: :recipe do
     recipe_image Rack::Test::UploadedFile.new("spec/resources/test.txt")
   end
 
+  factory :recipe_with_real_image, parent: :recipe do
+    recipe_image Rack::Test::UploadedFile.new("spec/resources/good_news.jpg")
+  end
 end
