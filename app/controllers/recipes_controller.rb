@@ -30,7 +30,6 @@ class RecipesController < ApplicationController
       flash[:error] = get_errors(@recipe)
       render :edit
     end
-
   end
 
   def create

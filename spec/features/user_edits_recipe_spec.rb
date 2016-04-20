@@ -7,7 +7,6 @@ require 'rails_helper'
 # - User can edit all fields and save to the database
 # - Errors get raised if an edit would lead to an invalid record
 
-
 feature "User edits a recipe" do
   before(:each) do
     @user = create(:user)
