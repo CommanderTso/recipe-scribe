@@ -10,7 +10,7 @@ feature "User deletes a recipe" do
   before(:each) do
     @user = create(:user)
     login_user(@user)
-    @recipe = create(:recipe, user: @user)
+    @recipe = create(:ziti_with_potatoes, user: @user)
   end
 
   scenario "User deletes a recipe" do
@@ -20,5 +20,8 @@ feature "User deletes a recipe" do
 
     expect(current_path).to eq(recipes_path)
     expect(page).to have_content "Let's enter your first recipe!"
+  end
+
+  xscenario "Need test for cascading deletion of recipe ingredients" do
   end
 end

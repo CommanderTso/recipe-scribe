@@ -7,6 +7,14 @@
 <p>
   <%= @recipe.instructions %>
 </p>
+<p>
+  <ul>
+    <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+      <li><%= recipe_ingredient.to_s %></li>
+    <% end %>
+  </ul>
+</p>
+
 
 <%= button_to "Delete", @recipe, method: :delete %>
 <%= link_to "Edit", edit_recipe_path(@recipe.id) %>

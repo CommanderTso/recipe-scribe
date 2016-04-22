@@ -1,17 +1,14 @@
 require 'rails_helper'
 
-# As a user, I want to edit my recipes.
-#
-# Acceptance Criteria:
-# - Show page has an edit button
-# - User can edit all fields and save to the database
-# - Errors get raised if an edit would lead to an invalid record
-
 feature "User edits a recipe" do
   before(:each) do
     @user = create(:user)
     login_user(@user)
-    @recipe = create(:recipe_with_real_image, user: @user)
+
+    strawberries = create(:ingredient_strawberries)
+    create(:ingredient_potatoes)
+    create(:three_pints_strawberries, ingredient: strawberries)
+    # @recipe = create(:ziti_strawberries_real_image, user: @user)
   end
 
   scenario "User makes valid edits to a recipe" do
@@ -19,9 +16,14 @@ feature "User edits a recipe" do
 
     click_link_or_button "Edit"
 
+    save_and_open_page
     expect(current_path).to eq(edit_recipe_path(@recipe.id))
     expect(find_field('Title').value).to eq @recipe.title
     expect(find_field('Instructions').value).to eq @recipe.instructions
+    expect(page.find('//select[@id="recipe_recipe_ingredients_attributes_0_ingredient"]').text).to eq("Strawberries")
+    expect(page.find('//select[@id="recipe_recipe_ingredients_attributes_0_measurement_unit"]').text).to eq("lbs.")
+    expect(page.find('//input[@id="recipe_recipe_ingredients_attributes_0_quantity"]').value).to eq("5")
+
     expect(page).to have_field "Recipe image"
 
     fill_in "Title", with: "New Title"

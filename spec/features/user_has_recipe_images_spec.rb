@@ -1,20 +1,22 @@
+require 'rails_helper'
+
 feature "User adds an image to recipe" do
   before(:each) do
     StorageBucket.files.each do |file|
       file.destroy
     end
 
+    @recipe = create(:ziti_potatoes_fake_image, user: @user)
     @user = create(:user)
     login_user(@user)
   end
 
   scenario "Display recipe images in a recipe" do
-    recipe = create(:recipe_with_fake_image, user: @user)
 
     visit root_path
 
-    expect(page).to have_content recipe.title
-    expect(page).to have_css "img[src='#{recipe.image_url}']"
+    expect(page).to have_content @recipe.title
+    expect(page).to have_css "img[src='#{@recipe.image_url}']"
   end
 
   scenario "Adding a recipe with an image" do
@@ -23,11 +25,12 @@ feature "User adds an image to recipe" do
 
     expect(page).to have_content "Add a new recipe here:"
 
-    within "form.new_recipe" do
-      fill_in "Title", with: "A Tale of Two Bagels"
-      attach_file "Recipe image", "spec/resources/test.txt"
-      click_button "Save Recipe"
-    end
+    fill_in "Title", with: "A Tale of Two Bagels"
+    attach_file "Recipe image", "spec/resources/test.txt"
+    select "Potatoes", :from => "recipe_recipe_ingredients_attributes_0_ingredient"
+    select 'lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit'
+    fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
+    click_button "Save Recipe"
 
     expect(page).to have_content "Your recipe has been saved!"
     expect(Recipe.count).to eq 1
@@ -45,11 +48,12 @@ feature "User adds an image to recipe" do
   scenario "Recipe image has a space in its file name" do
     visit  new_recipe_path
 
-    within "form.new_recipe" do
-      fill_in "Title", with: "A Tale of Two Bagels"
-      attach_file "Recipe image", "spec/resources/test file three.txt"
-      click_button "Save Recipe"
-    end
+    fill_in "Title", with: "A Tale of Two Bagels"
+    attach_file "Recipe image", "spec/resources/test file three.txt"
+    select "Potatoes", :from => "recipe_recipe_ingredients_attributes_0_ingredient"
+    select 'lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit'
+    fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
+    click_button "Save Recipe"
 
     expect(page).to have_content "Your recipe has been saved!"
     expect(Recipe.count).to eq 1

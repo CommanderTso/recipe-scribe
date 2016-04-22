@@ -1,38 +1,47 @@
 require 'rails_helper'
 
-# As a user, I want to input recipes.
+# Ingredients
 #
-# Acceptance Criteria:
-# - User can input a recipe with:
-# -- a title (required)
-# -- one or more ingredients (required)
-# -- instructions (optional)
-# - User is messaged if the entry succeeds
-# - User is messaged with informative errors if the entry fails.
-# - Recipes can be created with images attached
-# - Images are displayed with the rest of the recipe info
+# - Need two possible per recipe
+# - At least one is required
+# - Breaks out into ingredient, measurement, and quantity
 
 feature "User inputs a recipe" do
   before(:each) do
+    create(:strawberries, name: "Potatoes")
+    create(:strawberries, name: "Saffron")
+    create(:pints, name: "lbs.")
+    create(:pints, name: "oz.")
+
+    @title = "Title of a Recipe"
+    @instructions = "Instructions on how to make it!"
+
+
     login_user(create(:user))
   end
 
   scenario "User inputs a recipe" do
-    title = "Title of a Recipe"
-    instructions = "Instructions on how to make it!"
-
     visit root_path
     page.find('#add_recipe').click
 
     expect(page).to have_content "Add a new recipe here:"
 
-    fill_in "Title", with: title
-    fill_in "Instructions", with: instructions
+    fill_in "Title", with: @title
+    fill_in "Instructions", with: @instructions
+
+    select('Potatoes', :from => 'recipe_recipe_ingredients_attributes_0_ingredient')
+    select('lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit')
+    fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
+
+    select('Saffron', :from => 'recipe_recipe_ingredients_attributes_1_ingredient')
+    select('oz.', :from => 'recipe_recipe_ingredients_attributes_1_measurement_unit')
+    fill_in "recipe_recipe_ingredients_attributes_1_quantity", with: "20"
 
     click_button "Save Recipe"
 
     expect(Recipe.count).to eq 1
-    expect(page).to have_content title
+    expect(RecipeIngredient.count).to eq 2
+    expect(page).to have_content @title
     expect(page).to have_content "Your recipe has been saved!"
   end
 
@@ -45,5 +54,27 @@ feature "User inputs a recipe" do
     expect(Recipe.count).to eq 0
     expect(page).to have_content "Add a new recipe here:"
     expect(page).to have_content "Title can't be blank"
+  end
+
+  scenario "User has an ingredient, but leaves a second ingredient input blank" do
+    visit root_path
+    page.find('#add_recipe').click
+
+    expect(page).to have_content "Add a new recipe here:"
+
+    fill_in "Title", with: @title
+    fill_in "Instructions", with: @instructions
+
+    select('Potatoes', :from => 'recipe_recipe_ingredients_attributes_0_ingredient')
+    select('lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit')
+    fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
+
+    click_button "Save Recipe"
+
+    expect(Recipe.count).to eq 1
+    expect(RecipeIngredient.count).to eq 1
+    expect(Recipe.first.recipe_ingredients.count).to eq 1
+    expect(page).to have_content @title
+    expect(page).to have_content "Your recipe has been saved!"
   end
 end
