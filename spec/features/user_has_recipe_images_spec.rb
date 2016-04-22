@@ -6,18 +6,19 @@ feature "User adds an image to recipe" do
       file.destroy
     end
 
-    @user = create(:user)
-    login_user(@user)
-    @recipe = create(:recipe_with_fake_image)
+    user = create(:user)
+    login_user(user)
     create(:ingredient, name: "Potatoes")
     create(:measurement_unit, name: "lbs")
   end
 
   scenario "Display recipe images in a recipe" do
+    recipe = create(:recipe_with_fake_image)
+
     visit root_path
 
-    expect(page).to have_content @recipe.title
-    expect(page).to have_css "img[src='#{@recipe.image_url}']"
+    expect(page).to have_content recipe.title
+    expect(page).to have_css "img[src='#{recipe.image_url}']"
   end
 
   scenario "Adding a recipe with an image" do
@@ -34,12 +35,12 @@ feature "User adds an image to recipe" do
     click_button "Save Recipe"
 
     expect(page).to have_content "Your recipe has been saved!"
-    expect(Recipe.count).to eq 2
+    expect(Recipe.count).to eq 1
 
     recipe = Recipe.last
     expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test.txt"
 
-    expect(StorageBucket.files.all.count).to eq 2
+    expect(StorageBucket.files.all.count).to eq 1
     file = StorageBucket.files.last
     expect(file.key).to eq "recipe_images/#{recipe.id}/test.txt"
     expect(file.body).to include "A test file."
@@ -56,20 +57,20 @@ feature "User adds an image to recipe" do
     click_button "Save Recipe"
 
     expect(page).to have_content "Your recipe has been saved!"
-    expect(Recipe.count).to eq 2
+    expect(Recipe.count).to eq 1
 
     recipe = Recipe.last
     expect(recipe.title).to eq "A Tale of Two Bagels"
     expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test_file_three.txt"
 
-    expect(StorageBucket.files.all.count).to eq 2
+    expect(StorageBucket.files.all.count).to eq 1
     file = StorageBucket.files.last
     expect(file.key).to eq "recipe_images/#{recipe.id}/test_file_three.txt"
     expect(file.body).to include "A third test file!"
   end
 
   scenario "Editing a recipe's image" do
-    recipe = create(:recipe_with_fake_image, user: @user)
+    recipe = create(:recipe_with_fake_image)
 
     visit root_path
     click_link "recipe-link-#{recipe.id}"
@@ -86,7 +87,7 @@ feature "User adds an image to recipe" do
   end
 
   scenario "Deleting a recipe with an image" do
-    recipe = create(:recipe_with_fake_image, user: @user)
+    recipe = create(:recipe_with_fake_image)
 
     image_key = "recipe_images/#{recipe.id}/test.txt"
     expect(StorageBucket.files.get(image_key)).to be_present
