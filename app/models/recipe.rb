@@ -1,8 +1,12 @@
 class Recipe < ActiveRecord::Base
   validates :title, presence: true
+  validates :recipe_ingredients, presence: true
+  validates :user, presence: true
 
   belongs_to :user
-
+  has_many :recipe_ingredients
+  accepts_nested_attributes_for :recipe_ingredients,
+    reject_if: lambda { |attributes| attributes['count'].blank? }
   attr_accessor :recipe_image
 
   private

@@ -1,17 +1,20 @@
 FactoryGirl.define do
   factory :recipe do
-    title "My Old School Baked Ziti"
-    instructions %(A few notes: To make this without meat, as I’m not
-      personally into meat substitutes, I would use a pound or so of sliced
-      mushrooms instead to make this vegetarian.)
+    sequence(:title) { |n| "Recipe Title #{n}" }
+    sequence(:instructions) { |n| "Recipe instructions #{n}." }
     user
-  end
 
-  factory :recipe_with_fake_image, parent: :recipe do
-    recipe_image Rack::Test::UploadedFile.new("spec/resources/test.txt")
-  end
+    before(:create) do |recipe|
+      ri = build(:recipe_ingredient, recipe: recipe)
+      recipe.recipe_ingredients << ri
+    end
 
-  factory :recipe_with_real_image, parent: :recipe do
-    recipe_image Rack::Test::UploadedFile.new("spec/resources/good_news.jpg")
+    factory :recipe_with_fake_image do
+      recipe_image Rack::Test::UploadedFile.new("spec/resources/test.txt")
+    end
+
+    factory :recipe_with_real_image do
+      recipe_image Rack::Test::UploadedFile.new("spec/resources/good_news.jpg")
+    end
   end
 end
