@@ -21,6 +21,6 @@ class RecipeIngredient < ActiveRecord::Base
   end
 
   def quantity=(number)
-    super((number.to_f*100).round / 100.0)
+    super((number.to_f * 100).round / 100.0)
   end
 end

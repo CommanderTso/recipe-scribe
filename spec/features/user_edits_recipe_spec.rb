@@ -5,24 +5,26 @@ feature "User edits a recipe" do
     @user = create(:user)
     login_user(@user)
 
-    strawberries = create(:ingredient_strawberries)
-    create(:ingredient_potatoes)
-    create(:three_pints_strawberries, ingredient: strawberries)
-    # @recipe = create(:ziti_strawberries_real_image, user: @user)
+    @recipe_one = create(:recipe)
+    @recipe_two = create(:recipe)
   end
 
   scenario "User makes valid edits to a recipe" do
-    visit recipe_path(@recipe)
+    ingredient = @recipe_one.recipe_ingredients.first.ingredient.id.to_s
+    measurement = @recipe_one.recipe_ingredients.first.measurement_unit.id.to_s
+    quantity = @recipe_one.recipe_ingredients.first.quantity.to_s
+
+    visit recipe_path(@recipe_one)
 
     click_link_or_button "Edit"
 
-    save_and_open_page
-    expect(current_path).to eq(edit_recipe_path(@recipe.id))
-    expect(find_field('Title').value).to eq @recipe.title
-    expect(find_field('Instructions').value).to eq @recipe.instructions
-    expect(page.find('//select[@id="recipe_recipe_ingredients_attributes_0_ingredient"]').text).to eq("Strawberries")
-    expect(page.find('//select[@id="recipe_recipe_ingredients_attributes_0_measurement_unit"]').text).to eq("lbs.")
-    expect(page.find('//input[@id="recipe_recipe_ingredients_attributes_0_quantity"]').value).to eq("5")
+    expect(current_path).to eq(edit_recipe_path(@recipe_one.id))
+    expect(find_field('Title').value).to eq @recipe_one.title
+    expect(find_field('Instructions').value).to eq @recipe_one.instructions
+
+    expect(page.find_field("recipe_recipe_ingredients_attributes_0_ingredient").value).to eq(ingredient)
+    expect(page.find_field("recipe_recipe_ingredients_attributes_0_measurement_unit").value).to eq(measurement)
+    expect(page.find_field("recipe_recipe_ingredients_attributes_0_quantity").value).to eq(quantity)
 
     expect(page).to have_field "Recipe image"
 
@@ -40,7 +42,7 @@ feature "User edits a recipe" do
   end
 
   scenario "User makes invalid edits to a recipe" do
-    visit recipe_path(@recipe)
+    visit recipe_path(@recipe_one)
 
     click_link_or_button "Edit"
 
@@ -48,6 +50,6 @@ feature "User edits a recipe" do
     click_link_or_button "Save Recipe"
 
     expect(page).to have_content("Title can't be blank.")
-    expect(find_field('Instructions').value).to have_content @recipe.instructions.slice(0, 10)
+    expect(find_field('Instructions').value).to have_content @recipe_one.instructions.slice(0, 10)
   end
 end

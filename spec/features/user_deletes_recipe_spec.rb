@@ -10,7 +10,24 @@ feature "User deletes a recipe" do
   before(:each) do
     @user = create(:user)
     login_user(@user)
-    @recipe = create(:ziti_with_potatoes, user: @user)
+    # @recipe = create(:ziti_with_potatoes, user: @user)
+
+    potatoes = Ingredient.create(name: "Potatoes")
+    lbs = MeasurementUnit.create(name: "lbs")
+
+    @recipe = Recipe.new(
+      title: "A title",
+      instructions: "Some instructions.",
+      user: @user
+    )
+
+    @recipe.recipe_ingredients.new(
+      quantity: 2,
+      measurement_unit: lbs,
+      ingredient: potatoes
+    )
+
+    @recipe.save
   end
 
   scenario "User deletes a recipe" do

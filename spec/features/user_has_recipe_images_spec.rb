@@ -6,13 +6,14 @@ feature "User adds an image to recipe" do
       file.destroy
     end
 
-    @recipe = create(:ziti_potatoes_fake_image, user: @user)
     @user = create(:user)
     login_user(@user)
+    @recipe = create(:recipe_with_fake_image)
+    create(:ingredient, name: "Potatoes")
+    create(:measurement_unit, name: "lbs")
   end
 
   scenario "Display recipe images in a recipe" do
-
     visit root_path
 
     expect(page).to have_content @recipe.title
@@ -27,20 +28,19 @@ feature "User adds an image to recipe" do
 
     fill_in "Title", with: "A Tale of Two Bagels"
     attach_file "Recipe image", "spec/resources/test.txt"
-    select "Potatoes", :from => "recipe_recipe_ingredients_attributes_0_ingredient"
-    select 'lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit'
+    select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient"
+    select 'lbs', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit'
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
     click_button "Save Recipe"
 
     expect(page).to have_content "Your recipe has been saved!"
-    expect(Recipe.count).to eq 1
+    expect(Recipe.count).to eq 2
 
-    recipe = Recipe.first
-    expect(recipe.title).to eq "A Tale of Two Bagels"
+    recipe = Recipe.last
     expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test.txt"
 
-    expect(StorageBucket.files.all.count).to eq 1
-    file = StorageBucket.files.first
+    expect(StorageBucket.files.all.count).to eq 2
+    file = StorageBucket.files.last
     expect(file.key).to eq "recipe_images/#{recipe.id}/test.txt"
     expect(file.body).to include "A test file."
   end
@@ -50,20 +50,20 @@ feature "User adds an image to recipe" do
 
     fill_in "Title", with: "A Tale of Two Bagels"
     attach_file "Recipe image", "spec/resources/test file three.txt"
-    select "Potatoes", :from => "recipe_recipe_ingredients_attributes_0_ingredient"
-    select 'lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit'
+    select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient"
+    select 'lbs', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit'
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
     click_button "Save Recipe"
 
     expect(page).to have_content "Your recipe has been saved!"
-    expect(Recipe.count).to eq 1
+    expect(Recipe.count).to eq 2
 
-    recipe = Recipe.first
+    recipe = Recipe.last
     expect(recipe.title).to eq "A Tale of Two Bagels"
     expect(recipe.image_url).to end_with "/recipe_images/#{recipe.id}/test_file_three.txt"
 
-    expect(StorageBucket.files.all.count).to eq 1
-    file = StorageBucket.files.first
+    expect(StorageBucket.files.all.count).to eq 2
+    file = StorageBucket.files.last
     expect(file.key).to eq "recipe_images/#{recipe.id}/test_file_three.txt"
     expect(file.body).to include "A third test file!"
   end

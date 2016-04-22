@@ -8,14 +8,13 @@ require 'rails_helper'
 
 feature "User inputs a recipe" do
   before(:each) do
-    create(:strawberries, name: "Potatoes")
-    create(:strawberries, name: "Saffron")
-    create(:pints, name: "lbs.")
-    create(:pints, name: "oz.")
+    create(:ingredient, name: "Potatoes")
+    create(:ingredient, name: "Saffron")
+    create(:measurement_unit, name: "lbs.")
+    create(:measurement_unit, name: "oz.")
 
     @title = "Title of a Recipe"
     @instructions = "Instructions on how to make it!"
-
 
     login_user(create(:user))
   end
@@ -29,12 +28,12 @@ feature "User inputs a recipe" do
     fill_in "Title", with: @title
     fill_in "Instructions", with: @instructions
 
-    select('Potatoes', :from => 'recipe_recipe_ingredients_attributes_0_ingredient')
-    select('lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit')
+    select('Potatoes', from: 'recipe_recipe_ingredients_attributes_0_ingredient')
+    select('lbs.', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit')
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
 
-    select('Saffron', :from => 'recipe_recipe_ingredients_attributes_1_ingredient')
-    select('oz.', :from => 'recipe_recipe_ingredients_attributes_1_measurement_unit')
+    select('Saffron', from: 'recipe_recipe_ingredients_attributes_1_ingredient')
+    select('oz.', from: 'recipe_recipe_ingredients_attributes_1_measurement_unit')
     fill_in "recipe_recipe_ingredients_attributes_1_quantity", with: "20"
 
     click_button "Save Recipe"
@@ -65,8 +64,8 @@ feature "User inputs a recipe" do
     fill_in "Title", with: @title
     fill_in "Instructions", with: @instructions
 
-    select('Potatoes', :from => 'recipe_recipe_ingredients_attributes_0_ingredient')
-    select('lbs.', :from => 'recipe_recipe_ingredients_attributes_0_measurement_unit')
+    select('Potatoes', from: 'recipe_recipe_ingredients_attributes_0_ingredient')
+    select('lbs.', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit')
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
 
     click_button "Save Recipe"
