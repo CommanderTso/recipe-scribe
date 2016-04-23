@@ -1,15 +1,27 @@
-Ingredient.find_or_create_by!(name: "Potatoes")
-Ingredient.find_or_create_by!(name: "Bread")
-Ingredient.find_or_create_by!(name: "Strawberries")
+potatoes = Ingredient.find_or_create_by!(name: "Potatoes")
+bread = Ingredient.find_or_create_by!(name: "Bread")
+strawberries =Ingredient.find_or_create_by!(name: "Strawberries")
 
-MeasurementUnit.find_or_create_by!(name: "lbs.")
-MeasurementUnit.find_or_create_by!(name: "loaves")
-MeasurementUnit.find_or_create_by!(name: "pints")
+lbs = MeasurementUnit.find_or_create_by!(name: "lbs.")
+loaves = MeasurementUnit.find_or_create_by!(name: "loaves")
+pints = MeasurementUnit.find_or_create_by!(name: "pints")
 
-RecipeIngredient.find_or_create_by!(
-  ingredient: Ingredient.first,
-  measurement_unit: MeasurementUnit.first,
+five_lbs_potatoes = RecipeIngredient.find_or_create_by!(
+  ingredient: potatoes,
+  measurement_unit: lbs,
   quantity: 5
+)
+
+three_loaves_bread = RecipeIngredient.find_or_create_by!(
+  ingredient: bread,
+  measurement_unit: loaves,
+  quantity: 3
+)
+
+one_pint_strawberries = RecipeIngredient.find_or_create_by!(
+  ingredient: strawberries,
+  measurement_unit: pints,
+  quantity: 1
 )
 
 user_1 = User.find_by(email: "abc@abc.com")
@@ -22,22 +34,32 @@ unless user_1.present?
   )
 end
 
-recipe_1 = Recipe.find_by(title: "My Old School Baked Ziti")
+recipe_1 = Recipe.find_by(title: "Potato Surprise")
 unless recipe_1.present?
   Recipe.create!(
     user: user_1,
-    recipe_ingredients: [RecipeIngredient.first],
-    title: "My Old School Baked Ziti",
-    instructions: %(A few notes: To make this without meat, as I’m not personally
-      into meat substitutes, I would use a pound or so of sliced mushrooms instead
-      to make this vegetarian. To freeze, you can freeze this unbaked and once
-      defrosted, bake it in the oven as directed. You could also freeze it after
-      baking, and just defrost and rewarm it, but that leads to softer noodles
-      because they get warmed/cooked an extra time. Finally, if you really really
-      like those crispy edges (I do!), I find if you use a round or oval dish and
-      ziti noodles (with straight ends) vs. penne noodles (which usually have
-      angled ends), it especially leaves jagged edges, more prone to crisping. It
-      also helps to just pour the pasta mix into the dish, not press it into the
-      corners.)
+    recipe_ingredients: [five_lbs_potatoes],
+    title: "Potato Surprise",
+    instructions: %(Surprise!  It's 5 lbs of poatoes.  Have fun.)
+  )
+end
+
+recipe_2 = Recipe.find_by(title: "Potato Bread")
+unless recipe_2.present?
+  Recipe.create!(
+    user: user_1,
+    recipe_ingredients: [five_lbs_potatoes, three_loaves_bread],
+    title: "Potato Bread",
+    instructions: %(Here are some bread and potatoes.)
+  )
+end
+
+recipe_3 = Recipe.find_by(title: "Strawberry Bread")
+unless recipe_3.present?
+  Recipe.create!(
+    user: user_1,
+    recipe_ingredients: [one_pint_strawberries, three_loaves_bread],
+    title: "Strawberry Bread",
+    instructions: %(This is a terrbile idea.)
   )
 end
