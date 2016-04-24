@@ -6,24 +6,6 @@ lbs = MeasurementUnit.find_or_create_by!(name: "lbs.")
 loaves = MeasurementUnit.find_or_create_by!(name: "loaves")
 pints = MeasurementUnit.find_or_create_by!(name: "pints")
 
-five_lbs_potatoes = RecipeIngredient.find_or_create_by!(
-  ingredient: potatoes,
-  measurement_unit: lbs,
-  quantity: 5
-)
-
-three_loaves_bread = RecipeIngredient.find_or_create_by!(
-  ingredient: bread,
-  measurement_unit: loaves,
-  quantity: 3
-)
-
-one_pint_strawberries = RecipeIngredient.find_or_create_by!(
-  ingredient: strawberries,
-  measurement_unit: pints,
-  quantity: 1
-)
-
 user_1 = User.find_by(email: "abc@abc.com")
 unless user_1.present?
   user_1 = User.create!(
@@ -36,6 +18,12 @@ end
 
 recipe_1 = Recipe.find_by(title: "Potato Surprise")
 unless recipe_1.present?
+  five_lbs_potatoes = RecipeIngredient.create!(
+    ingredient: potatoes,
+    measurement_unit: lbs,
+    quantity: 5
+  )
+
   Recipe.create!(
     user: user_1,
     recipe_ingredients: [five_lbs_potatoes],
@@ -46,6 +34,18 @@ end
 
 recipe_2 = Recipe.find_by(title: "Potato Bread")
 unless recipe_2.present?
+  five_lbs_potatoes = RecipeIngredient.create!(
+    ingredient: potatoes,
+    measurement_unit: lbs,
+    quantity: 5
+  )
+
+  three_loaves_bread = RecipeIngredient.create!(
+    ingredient: bread,
+    measurement_unit: loaves,
+    quantity: 3
+  )
+
   Recipe.create!(
     user: user_1,
     recipe_ingredients: [five_lbs_potatoes, three_loaves_bread],
@@ -56,7 +56,19 @@ end
 
 recipe_3 = Recipe.find_by(title: "Strawberry Bread")
 unless recipe_3.present?
-  Recipe.create!(
+  one_pint_strawberries = RecipeIngredient.create!(
+    ingredient: strawberries,
+    measurement_unit: pints,
+    quantity: 1
+  )
+
+  three_loaves_bread = RecipeIngredient.create!(
+    ingredient: bread,
+    measurement_unit: loaves,
+    quantity: 3
+  )
+
+  recipe_3 = Recipe.create!(
     user: user_1,
     recipe_ingredients: [one_pint_strawberries, three_loaves_bread],
     title: "Strawberry Bread",
