@@ -18,6 +18,7 @@ gem 'gcloud'
 
 group :development, :test do
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
