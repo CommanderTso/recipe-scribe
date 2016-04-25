@@ -38,15 +38,14 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
-    @recipe.user = current_user
+    @recipe = current_user.recipes.new(recipe_params)
 
     if @recipe.save
       flash[:notice] = "Your recipe has been saved!"
       redirect_to root_path
     else
       flash.now[:error] = get_errors(@recipe)
-      2.times { @recipe.recipe_ingredients.build }
+      @recipe.recipe_ingredients.length.times { @recipe.recipe_ingredients.build }
       render :new
     end
   end
@@ -82,6 +81,7 @@ class RecipesController < ApplicationController
     #
     # Up above, we delete the created records if the Recipe fails to eliminate
     # orphan records
+
     ingredients = recipe_ingredients_from_params
     params[:recipe][:recipe_ingredient_ids] = ingredients
 
@@ -91,7 +91,7 @@ class RecipesController < ApplicationController
       :title,
       :instructions,
       :recipe_image,
-      recipe_ingredient_ids: []
+      recipe_ingredients_attributes: [:quantity, :measurement_unit, :ingredient]
     )
   end
 end
