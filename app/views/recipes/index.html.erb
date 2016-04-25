@@ -1,19 +1,20 @@
 <% if !@recipes.empty? %>
-  <div class="row">
-    <ul class="accordion" data-accordion data-allow-all-closed="true">
-      <% @recipes.each do |recipe| %>
-        <li class="accordion-item" data-accordion-item>
-          <a href="#" class="accordion-title"><%= recipe.title %></a>
-          <div class="accordion-content" data-tab-content >
-            <% unless recipe.image_url.nil? %>
-              <%= image_tag recipe.image_url, id: "recipe-image-#{recipe.id}" %>
-            <% end %>
-            <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
+  <% @recipes.each do |recipe| %>
+    <div class="row">
+      <div class="medium-6 large-4 columns">
+        <article class="article-card">
+          <img src="<%= recipe.image_url %>">
+          <div class="card-content">
+            <h4><%= recipe.title %></h4>
+            <p>Blah blah content blah blah blah.</p>
+            <p>
+              <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
+            </p>
           </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+        </article>
+      </div>
+    </div>
+  <% end %>
 <% else %>
   <%= link_to "Let's enter your first recipe!", new_recipe_path %>
 <% end %>

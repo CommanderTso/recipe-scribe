@@ -22,15 +22,15 @@ feature "User edits a recipe" do
     expect(find_field('Title').value).to eq @recipe_one.title
     expect(find_field('Instructions').value).to eq @recipe_one.instructions
 
-    expect(page.find_field("recipe_recipe_ingredients_attributes_0_ingredient").value).to eq(ingredient)
-    expect(page.find_field("recipe_recipe_ingredients_attributes_0_measurement_unit").value).to eq(measurement)
+    expect(page.find_field("recipe_recipe_ingredients_attributes_0_ingredient_id").value).to eq(ingredient)
+    expect(page.find_field("recipe_recipe_ingredients_attributes_0_measurement_unit_id").value).to eq(measurement)
     expect(page.find_field("recipe_recipe_ingredients_attributes_0_quantity").value).to eq(quantity)
 
-    expect(page).to have_field "Recipe image"
+    expect(page).to have_field "Upload Recipe Image"
 
     fill_in "Title", with: "New Title"
     fill_in "Instructions", with: "New instructions."
-    attach_file "Recipe image", "spec/resources/burn-notice-bruce-campbell.jpg"
+    attach_file "Upload Recipe Image", "spec/resources/burn-notice-bruce-campbell.jpg"
 
     click_button "Save"
 

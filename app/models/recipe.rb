@@ -5,11 +5,14 @@ class Recipe < ActiveRecord::Base
 
   belongs_to :user
   has_many :recipe_ingredients
-  accepts_nested_attributes_for :recipe_ingredients,
-    reject_if: lambda { |attributes| attributes['count'].blank? }
+  accepts_nested_attributes_for :recipe_ingredients, reject_if: :reject_recipe_ingredients
   attr_accessor :recipe_image
 
   private
+
+  def reject_recipe_ingredients(attributed)
+    attributed['quantity'].blank? || attributed['measurement_unit_id'].blank? || attributed['ingredient_id'].blank?
+  end
 
   after_create :upload_image, if: :recipe_image
 

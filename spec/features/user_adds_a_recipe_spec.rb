@@ -28,12 +28,12 @@ feature "User inputs a recipe" do
     fill_in "Title", with: @title
     fill_in "Instructions", with: @instructions
 
-    select('Potatoes', from: 'recipe_recipe_ingredients_attributes_0_ingredient')
-    select('lbs.', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit')
+    select('Potatoes', from: 'recipe_recipe_ingredients_attributes_0_ingredient_id')
+    select('lbs.', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit_id')
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
 
-    select('Saffron', from: 'recipe_recipe_ingredients_attributes_1_ingredient')
-    select('oz.', from: 'recipe_recipe_ingredients_attributes_1_measurement_unit')
+    select('Saffron', from: 'recipe_recipe_ingredients_attributes_1_ingredient_id')
+    select('oz.', from: 'recipe_recipe_ingredients_attributes_1_measurement_unit_id')
     fill_in "recipe_recipe_ingredients_attributes_1_quantity", with: "20"
 
     click_button "Save Recipe"
@@ -64,8 +64,8 @@ feature "User inputs a recipe" do
     fill_in "Title", with: @title
     fill_in "Instructions", with: @instructions
 
-    select('Potatoes', from: 'recipe_recipe_ingredients_attributes_0_ingredient')
-    select('lbs.', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit')
+    select('Potatoes', from: 'recipe_recipe_ingredients_attributes_0_ingredient_id')
+    select('lbs.', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit_id')
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
 
     click_button "Save Recipe"
