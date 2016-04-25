@@ -39,11 +39,10 @@ class RecipesController < ApplicationController
     else
       flash.now[:error] = get_errors(@recipe)
 
-      if @recipe.recipe_ingredients.length < 2
-        number_to_build = 2
-      else
-        number_to_build = @recipe.recipe_ingredients.length
-      end
+      number_to_build = 2 if @recipe.recipe_ingredients.length < 2
+                          else
+                            number_to_build = @recipe.recipe_ingredients.length
+                          end
       number_to_build.times { @recipe.recipe_ingredients.build }
 
       render :new
