@@ -1,6 +1,6 @@
 potatoes = Ingredient.find_or_create_by!(name: "Potatoes")
 bread = Ingredient.find_or_create_by!(name: "Bread")
-strawberries =Ingredient.find_or_create_by!(name: "Strawberries")
+strawberries = Ingredient.find_or_create_by!(name: "Strawberries")
 
 lbs = MeasurementUnit.find_or_create_by!(name: "lbs.")
 loaves = MeasurementUnit.find_or_create_by!(name: "loaves")
@@ -68,7 +68,7 @@ unless recipe_3.present?
     quantity: 3
   )
 
-  recipe_3 = Recipe.create!(
+  Recipe.create!(
     user: user_1,
     recipe_ingredients: [one_pint_strawberries, three_loaves_bread],
     title: "Strawberry Bread",

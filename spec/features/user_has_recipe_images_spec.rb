@@ -29,8 +29,8 @@ feature "User adds an image to recipe" do
 
     fill_in "Title", with: "A Tale of Two Bagels"
     attach_file "Upload Recipe Image", "spec/resources/test.txt"
-    select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient"
-    select 'lbs', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit'
+    select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient_id"
+    select 'lbs', from: "recipe_recipe_ingredients_attributes_0_measurement_unit_id"
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
     click_button "Save Recipe"
 
@@ -51,8 +51,8 @@ feature "User adds an image to recipe" do
 
     fill_in "Title", with: "A Tale of Two Bagels"
     attach_file "Upload Recipe Image", "spec/resources/test file three.txt"
-    select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient"
-    select 'lbs', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit'
+    select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient_id"
+    select 'lbs', from: "recipe_recipe_ingredients_attributes_0_measurement_unit_id"
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
     click_button "Save Recipe"
 

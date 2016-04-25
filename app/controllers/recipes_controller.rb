@@ -17,10 +17,6 @@ class RecipesController < ApplicationController
   def edit
     @recipe = Recipe.find(params[:id])
     @recipe_ingredients = @recipe.recipe_ingredients
-    unless current_user == @recipe.user
-      flash[:error] = "You are not authorized to edit this recipe!"
-      redirect_to root_path
-    end
   end
 
   def update
@@ -29,9 +25,6 @@ class RecipesController < ApplicationController
       flash[:notice] = "Recipe updated!"
       redirect_to recipe_path(@recipe)
     else
-      # TODO - This is a big, hairy hack to get around my other hack
-      # of saving RecipeIngredients before we know if Recipe is validates
-      @recipe.recipe_ingredients.delete_all
       flash[:error] = get_errors(@recipe)
       render :edit
     end
@@ -45,7 +38,14 @@ class RecipesController < ApplicationController
       redirect_to root_path
     else
       flash.now[:error] = get_errors(@recipe)
-      @recipe.recipe_ingredients.length.times { @recipe.recipe_ingredients.build }
+
+      if @recipe.recipe_ingredients.length < 2
+        number_to_build = 2
+      else
+        number_to_build = @recipe.recipe_ingredients.length
+      end
+      number_to_build.times { @recipe.recipe_ingredients.build }
+
       render :new
     end
   end
@@ -73,25 +73,13 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    # TODO - This here is a hack to deal with the fact that the form
-    # passes back IDs of already-made RecipeIngredient components
-    # I couln't find a better way to deal with things than to
-    # create the RecipeIngredient separately, then pass the id's
-    # with the recipe_params.
-    #
-    # Up above, we delete the created records if the Recipe fails to eliminate
-    # orphan records
-
-    ingredients = recipe_ingredients_from_params
-    params[:recipe][:recipe_ingredient_ids] = ingredients
-
     params.require(
       :recipe
     ).permit(
       :title,
       :instructions,
       :recipe_image,
-      recipe_ingredients_attributes: [:quantity, :measurement_unit, :ingredient]
+      recipe_ingredients_attributes: [:id, :quantity, :measurement_unit_id, :ingredient_id]
     )
   end
 end

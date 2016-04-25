@@ -14,18 +14,16 @@
       <%= f.file_field :recipe_image, class: "show-for-sr" %>
     </div>
     <div class="row">
-        <% counter = 1 %>
         <%= f.fields_for :recipe_ingredients do |ingredient_form| %>
           <div class="medium-4 columns">
-            <%= ingredient_form.text_field :quantity %>
+            <%= ingredient_form.text_field :quantity, placeholder: "Quantity.." %>
           </div>
           <div class="medium-4 columns">
-            <%= ingredient_form.collection_select :measurement_unit, MeasurementUnit.all, :id, :name %>
+            <%= ingredient_form.collection_select :measurement_unit_id, MeasurementUnit.all, :id, :name, prompt: "Measurement.." %>
           </div>
           <div class="medium-4 columns">
-            <%= ingredient_form.collection_select :ingredient, Ingredient.all, :id, :name %>
+            <%= ingredient_form.collection_select :ingredient_id, Ingredient.all, :id, :name, prompt: "Ingredient..." %>
           </div>
-          <% counter += 1 %>
         <% end %>
     </div>
     <%= f.submit "Save Recipe" %>
