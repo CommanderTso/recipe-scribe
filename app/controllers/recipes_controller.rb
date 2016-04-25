@@ -39,10 +39,12 @@ class RecipesController < ApplicationController
     else
       flash.now[:error] = get_errors(@recipe)
 
-      number_to_build = 2 if @recipe.recipe_ingredients.length < 2
-                          else
-                            number_to_build = @recipe.recipe_ingredients.length
-                          end
+      number_to_build = if @recipe.recipe_ingredients.length < 2
+                          2
+                        else
+                          @recipe.recipe_ingredients.length
+                        end
+
       number_to_build.times { @recipe.recipe_ingredients.build }
 
       render :new
@@ -52,23 +54,6 @@ class RecipesController < ApplicationController
   def destroy
     Recipe.find(params[:id]).destroy
     redirect_to recipes_path
-  end
-
-  def recipe_ingredients_from_params
-    ingredients = []
-    params["recipe"]["recipe_ingredients_attributes"].values.each do |attributes|
-      ingredient = Ingredient.find(attributes[:ingredient])
-      measurement_unit = MeasurementUnit.find(attributes[:measurement_unit])
-      quantity = attributes[:quantity]
-      recipe_ingredient = RecipeIngredient.create(
-        ingredient: ingredient,
-        measurement_unit: measurement_unit,
-        quantity: quantity
-      )
-      ingredients << recipe_ingredient.id
-    end
-
-    ingredients
   end
 
   def recipe_params
