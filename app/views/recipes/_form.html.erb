@@ -1,0 +1,33 @@
+<%= form_for @recipe do |f| %>
+  <div class="row medium-6 columns">
+    <h4>Add a new recipe here:</h4>
+    <div class="row">
+      <%= f.label :title, "Title" %>
+      <%= f.text_field :title, value: @recipe.title %>
+    </div>
+    <div class="row">
+      <%= f.label :instructions %>
+      <%= f.text_area :instructions, value: @recipe.instructions, size: "30x10" %>
+    </div>
+    <div class="row">
+      <%= f.label :recipe_image, "Upload Recipe Image", class: "button" %>
+      <%= f.file_field :recipe_image, class: "show-for-sr" %>
+    </div>
+    <div class="row">
+        <% counter = 1 %>
+        <%= f.fields_for :recipe_ingredients do |ingredient_form| %>
+          <div class="medium-4 columns">
+            <%= ingredient_form.text_field :quantity %>
+          </div>
+          <div class="medium-4 columns">
+            <%= ingredient_form.collection_select :measurement_unit, MeasurementUnit.all, :id, :name %>
+          </div>
+          <div class="medium-4 columns">
+            <%= ingredient_form.collection_select :ingredient, Ingredient.all, :id, :name %>
+          </div>
+          <% counter += 1 %>
+        <% end %>
+    </div>
+    <%= f.submit "Save Recipe" %>
+  </div>
+<% end %>

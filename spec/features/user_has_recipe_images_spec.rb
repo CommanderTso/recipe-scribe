@@ -28,7 +28,7 @@ feature "User adds an image to recipe" do
     expect(page).to have_content "Add a new recipe here:"
 
     fill_in "Title", with: "A Tale of Two Bagels"
-    attach_file "Recipe image", "spec/resources/test.txt"
+    attach_file "Upload Recipe Image", "spec/resources/test.txt"
     select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient"
     select 'lbs', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit'
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
@@ -50,7 +50,7 @@ feature "User adds an image to recipe" do
     visit  new_recipe_path
 
     fill_in "Title", with: "A Tale of Two Bagels"
-    attach_file "Recipe image", "spec/resources/test file three.txt"
+    attach_file "Upload Recipe Image", "spec/resources/test file three.txt"
     select "Potatoes", from: "recipe_recipe_ingredients_attributes_0_ingredient"
     select 'lbs', from: 'recipe_recipe_ingredients_attributes_0_measurement_unit'
     fill_in "recipe_recipe_ingredients_attributes_0_quantity", with: "3"
@@ -75,7 +75,7 @@ feature "User adds an image to recipe" do
     visit root_path
     click_link "recipe-link-#{recipe.id}"
     click_link "Edit"
-    attach_file "Recipe image", "spec/resources/test_2.txt"
+    attach_file "Upload Recipe Image", "spec/resources/test_2.txt"
     click_button "Save Recipe"
 
     expect(page).to have_content "Recipe updated!"
@@ -93,7 +93,6 @@ feature "User adds an image to recipe" do
     expect(StorageBucket.files.get(image_key)).to be_present
 
     visit root_path
-    click_link recipe.title
     click_link "recipe-link-#{recipe.id}"
     click_link_or_button "Delete"
 
