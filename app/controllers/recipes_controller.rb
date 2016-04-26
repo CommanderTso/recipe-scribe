@@ -63,7 +63,7 @@ class RecipesController < ApplicationController
       :title,
       :instructions,
       :recipe_image,
-      recipe_ingredients_attributes: [:id, :quantity, :measurement_unit_id, :ingredient_id]
+      recipe_ingredients_attributes: [:id, :quantity, :measurement_unit_id, :ingredient_id, :_destroy]
     )
   end
 end
