@@ -1,20 +1,27 @@
-<% if !@recipes.empty? %>
-  <% @recipes.each do |recipe| %>
-    <div class="row">
-      <div class="medium-6 large-4 columns">
-        <article class="article-card">
-          <img src="<%= recipe.image_url %>">
-          <div class="card-content">
-            <h4><%= recipe.title %></h4>
-            <p>Blah blah content blah blah blah.</p>
-            <p>
-              <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
-            </p>
-          </div>
-        </article>
+<div class="medium-6 columns float-left">
+  <% if !@recipes.empty? %>
+    <% @recipes.each do |recipe| %>
+      <div class="small-12 medium-6 columns end">
+        <div class="small-12 columns recipe_card_margin">
+          <article class="article-card">
+            <img src="<%= recipe.image_url %>">
+            <div class="card-content">
+              <h4><%= recipe.title %></h4>
+              <p>Blah blah content blah blah blah.</p>
+              <p>
+                <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
+                <div>
+                  <a href="#" class="left-arrow">Remove</a>
+                  <span id="recipe-increment-<%= recipe.id %>">0</span>
+                  <a href="#" class="right-arrow">Add</a>
+                </div>
+              </p>
+            </div>
+          </article>
+        </div>
       </div>
-    </div>
+    <% end %>
+  <% else %>
+    <%= link_to "Let's enter your first recipe!", new_recipe_path %>
   <% end %>
-<% else %>
-  <%= link_to "Let's enter your first recipe!", new_recipe_path %>
-<% end %>
+</div>
