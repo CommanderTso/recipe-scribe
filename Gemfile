@@ -17,11 +17,16 @@ gem 'google-api-client'
 gem 'gcloud'
 
 group :development, :test do
-  gem 'pry-rails'
-  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'poltergeist'
+  gem 'database_cleaner'
   gem 'launchy'
 end
 
