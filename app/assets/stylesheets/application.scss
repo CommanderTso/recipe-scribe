@@ -29,7 +29,7 @@
  			text-align: center;
  		}
  		h4 {
- 			color: #CF000F;
+ 			color: map-get($foundation-palette, headline);
  		}
  		p {
  			color: #757D75;
@@ -98,4 +98,9 @@
 	border-right: 10px solid map-get($foundation-palette, secondary);
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid transparent;
+}
+
+.recipe-increment-total {
+  font-weight: 300;
+  font-style: $header-font-family;
 }

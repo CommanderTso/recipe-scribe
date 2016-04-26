@@ -11,9 +11,9 @@
               <p>
                 <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
                 <div>
-                  <a href="#" class="left-arrow">Remove</a>
-                  <span id="recipe-increment-<%= recipe.id %>">0</span>
-                  <a href="#" class="right-arrow">Add</a>
+                  <a href="#" class="left-arrow" id="recipe-remove-<%= recipe.id %>">Remove</a>
+                  <span class="recipe-increment-total" id="recipe-increment-total-<%= recipe.id %>">0</span>
+                  <a href="#" class="right-arrow" id="recipe-add-<%= recipe.id %>">Add</a>
                 </div>
               </p>
             </div>
