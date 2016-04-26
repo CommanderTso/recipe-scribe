@@ -5,9 +5,9 @@ feature "User creates a shopping list" do
     user = create(:user)
     login_user(user)
 
-    bananas = create(:ingredient, name: "Bananas")
-    whipped_cream = create(:ingredient, name: "Whipped Cream")
-    pie_crust = create(:ingredient, name: "Pie Crust")
+    bananas = create(:ingredient, name: "bananas")
+    whipped_cream = create(:ingredient, name: "whipped cream")
+    pie_crust = create(:ingredient, name: "pie crusts")
 
     bunches = create(:measurement_unit, name: "bunches")
     cans = create(:measurement_unit, name: "cans")
@@ -36,7 +36,11 @@ feature "User creates a shopping list" do
     expect_no_page_reload do
       visit "/"
 
+      click_link "recipe-add-#{@recipe.id}"
 
+      expect(page.find("#grocery_list")).to have_content("2 bunches of bananas")
+      expect(page.find("#grocery_list")).to have_content("2 cans of whipped cream")
+      expect(page.find("#grocery_list")).to have_content("2 packages of pie crusts")
     end
   end
 end
