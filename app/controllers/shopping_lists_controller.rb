@@ -4,8 +4,15 @@ class ShoppingListsController < ApplicationController
     action = shopping_list_params["id"].split("-")[1]
 
     recipe = Recipe.find(recipe_id)
-    update_list_items(recipe, action)
-    update_recipe_increments(recipe, action)
+    increment = RecipeIncrement.where(
+      shopping_list: current_user.shopping_list,
+      recipe: recipe
+    )
+
+    if action == "add" || increment.count > 0
+      update_list_items(recipe, action)
+      update_recipe_increments(recipe, action)
+    end
 
     updated_list = []
     current_user.shopping_list.list_items.each do |item|
