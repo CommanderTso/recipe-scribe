@@ -5,6 +5,7 @@ class ShoppingListsController < ApplicationController
 
     recipe = Recipe.find(recipe_id)
     update_list_items(recipe, action)
+    update_recipe_increments(recipe, action)
 
     updated_list = []
     current_user.shopping_list.list_items.each do |item|
@@ -28,6 +29,14 @@ class ShoppingListsController < ApplicationController
         list_item.destroy
       end
     end
+  end
+
+  def update_recipe_increments(recipe, action)
+    recipe_increment = RecipeIncrement.find_or_create_by(
+      shopping_list: current_user.shopping_list,
+      recipe: recipe
+    )
+    recipe_increment.update(action)
   end
 
   def shopping_list_params

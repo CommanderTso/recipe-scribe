@@ -2,8 +2,12 @@ class RecipesController < ApplicationController
   before_filter :authorize
 
   def index
+    shopping_list = current_user.shopping_list
+
     @recipes = Recipe.where(user: current_user)
-    @list_items = current_user.shopping_list.list_items
+    @list_items = shopping_list.list_items
+
+    @recipe_increments = RecipeIncrement.all_for_shopping_list(shopping_list)
   end
 
   def show

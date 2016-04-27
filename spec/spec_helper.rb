@@ -23,10 +23,4 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
-
-  def expect_no_page_reload
-    page.evaluate_script "$(document.body).addClass('not-reloaded')"
-    yield
-    expect(page).to have_selector("body.not-reloaded")
-  end
 end

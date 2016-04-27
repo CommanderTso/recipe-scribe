@@ -10,9 +10,9 @@
               <p>Blah blah content blah blah blah.</p>
               <p>
                 <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
-                <div>
+                <div class>
                   <a href="/changelist" class="left-arrow list-change" id="list-remove-<%= recipe.id %>">Remove</a>
-                  <span class="recipe-increment-total" id="list-buying-total-<%= recipe.id %>">0</span>
+                  <span class="recipe-increment-total" id="list-buying-total-<%= recipe.id %>"><%= @recipe_increments[recipe.id] || 0 %></span>
                   <a href="/changelist" class="right-arrow list-change" id="list-add-<%= recipe.id %>">Add</a>
                 </div>
               </p>
