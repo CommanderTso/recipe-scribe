@@ -11,9 +11,9 @@
               <p>
                 <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
                 <div>
-                  <a href="#" class="left-arrow" id="recipe-remove-<%= recipe.id %>">Remove</a>
-                  <span class="recipe-increment-total" id="recipe-buying-total-<%= recipe.id %>">0</span>
-                  <a href="#" class="right-arrow" id="recipe-add-<%= recipe.id %>">Add</a>
+                  <a href="/changelist" class="left-arrow list-change" id="list-remove-<%= recipe.id %>">Remove</a>
+                  <span class="recipe-increment-total" id="list-buying-total-<%= recipe.id %>">0</span>
+                  <a href="/changelist" class="right-arrow list-change" id="list-add-<%= recipe.id %>">Add</a>
                 </div>
               </p>
             </div>
@@ -28,10 +28,14 @@
 
 <div class="large-3 columns" data-sticky-container>
   <nav class="columns sticky" data-sticky data-stick-to="top-bar" data-sticky-on="large">
-    <ul class="vertical menu" id="grocery_list" data-magellan>
-      <li>placeholder item</li>
-      <li>placeholder item</li>
-      <li>placeholder item</li>
+    <ul class="vertical menu" id="shopping_list" data-magellan>
+      <% if !@list_items.empty? %>
+        <% @list_items.each do |list_item| %>
+          <li><%= list_item.to_s %></li>
+        <% end %>
+      <% else %>
+        <li>Empty list!</li>
+      <% end %>
     </ul>
   </nav>
 </div>

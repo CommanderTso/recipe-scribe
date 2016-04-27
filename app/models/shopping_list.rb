@@ -4,4 +4,8 @@ class ShoppingList < ActiveRecord::Base
   has_many :list_items
 
   validates_presence_of :user
+
+  def list_items
+    super || []
+  end
 end

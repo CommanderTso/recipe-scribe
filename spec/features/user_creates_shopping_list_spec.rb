@@ -36,11 +36,13 @@ feature "User creates a shopping list" do
     expect_no_page_reload do
       visit "/"
 
-      click_link "recipe-add-#{@recipe.id}"
+      click_link "list-add-#{@recipe.id}"
 
-      expect(page.find("#grocery_list")).to have_content("2 bunches of bananas")
-      expect(page.find("#grocery_list")).to have_content("2 cans of whipped cream")
-      expect(page.find("#grocery_list")).to have_content("2 packages of pie crusts")
+      # NEED TO EXPECT RIGHT NUMBER FOR RECIPE INCREMENTS
+      # expect empty message when starting
+      expect(page.find("#shopping_list")).to have_content("2 bunches of bananas")
+      expect(page.find("#shopping_list")).to have_content("2 cans of whipped cream")
+      expect(page.find("#shopping_list")).to have_content("2 packages of pie crusts")
     end
   end
 end
