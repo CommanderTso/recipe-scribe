@@ -4,7 +4,7 @@ class RecipeIncrement < ActiveRecord::Base
 
   validates_presence_of :shopping_list, :recipe
 
-  def update(direction)
+  def update_quantity(direction)
     if direction == "add"
       self.quantity += 1
     else

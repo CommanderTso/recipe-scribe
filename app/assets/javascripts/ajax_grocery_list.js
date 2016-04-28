@@ -5,6 +5,10 @@ $(document).ready(function() {
     var recipe_id = event.target.id.split("-")[2]
     var current_increment = parseInt($('span#list-buying-total-' + recipe_id).text(), 10);
     var new_value = 0;
+    
+    if (current_increment === 0 && action === "remove") {
+      return;
+    }
 
     if (action === "add") {
       new_value = current_increment + 1;

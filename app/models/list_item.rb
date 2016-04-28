@@ -7,7 +7,7 @@ class ListItem < ActiveRecord::Base
   validates_presence_of :ingredient
   validates_presence_of :measurement_unit
 
-  def update(direction, quantity)
+  def update_quantity(direction, quantity)
     if direction == "add"
       self.quantity += quantity
     else

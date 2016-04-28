@@ -4,15 +4,9 @@ class ShoppingListsController < ApplicationController
     action = shopping_list_params["id"].split("-")[1]
 
     recipe = Recipe.find(recipe_id)
-    increment = RecipeIncrement.where(
-      shopping_list: current_user.shopping_list,
-      recipe: recipe
-    )
 
-    if action == "add" || increment.count > 0
-      update_list_items(recipe, action)
-      update_recipe_increments(recipe, action)
-    end
+    update_list_items(recipe, action)
+    update_recipe_increments(recipe, action)
 
     updated_list = []
     current_user.shopping_list.list_items.each do |item|
@@ -30,7 +24,7 @@ class ShoppingListsController < ApplicationController
         measurement_unit: recipe_ingredient.measurement_unit
       )
 
-      list_item.update(action, recipe_ingredient.quantity)
+      list_item.update_quantity(action, recipe_ingredient.quantity)
 
       if list_item.quantity == 0
         list_item.destroy
@@ -43,7 +37,8 @@ class ShoppingListsController < ApplicationController
       shopping_list: current_user.shopping_list,
       recipe: recipe
     )
-    recipe_increment.update(action)
+
+    recipe_increment.update_quantity(action)
   end
 
   def shopping_list_params
