@@ -2,7 +2,12 @@ class RecipesController < ApplicationController
   before_filter :authorize
 
   def index
+    shopping_list = current_user.shopping_list
+
     @recipes = Recipe.where(user: current_user)
+    @list_items = shopping_list.list_items
+
+    @recipe_increments = RecipeIncrement.all_for_shopping_list(shopping_list)
   end
 
   def show
@@ -63,7 +68,7 @@ class RecipesController < ApplicationController
       :title,
       :instructions,
       :recipe_image,
-      recipe_ingredients_attributes: [:id, :quantity, :measurement_unit_id, :ingredient_id]
+      recipe_ingredients_attributes: [:id, :quantity, :measurement_unit_id, :ingredient_id, :_destroy]
     )
   end
 end

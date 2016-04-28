@@ -16,6 +16,8 @@
 
  */
 
+ @import 'settings';
+
  .article-card {
  	border: 1px solid #d7d7d7;
  	margin-bottom: 1.5rem;
@@ -27,7 +29,7 @@
  			text-align: center;
  		}
  		h4 {
- 			color: #CF000F;
+ 			color: map-get($foundation-palette, headline);
  		}
  		p {
  			color: #757D75;
@@ -48,3 +50,57 @@
  		}
  	}
  }
+
+.right-arrow {
+	display: inline-block;
+	position: relative;
+	background: map-get($foundation-palette, tertiary);
+	padding: 5px;
+  width: 100px;
+  text-align: center;
+  float: right;
+  border-radius: 7px;
+}
+.right-arrow:after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 100%;
+	top: 50%;
+	margin-top: -10px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid map-get($foundation-palette, tertiary);
+}
+
+.left-arrow {
+	display: inline-block;
+	position: relative;
+	background: map-get($foundation-palette, secondary);
+	padding: 5px;
+  width: 100px;
+  text-align: center;
+  border-radius: 7px;
+}
+.left-arrow:after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 100%;
+	top: 50%;
+	margin-top: -10px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 10px solid map-get($foundation-palette, secondary);
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid transparent;
+}
+
+.recipe-increment-total {
+  font-weight: 300;
+  font-style: $header-font-family;
+}

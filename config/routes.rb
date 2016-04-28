@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  post '/changelist' => 'shopping_lists#edit'
+
+  resources :recipes
 end

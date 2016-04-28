@@ -4,8 +4,10 @@ class Recipe < ActiveRecord::Base
   validates :user, presence: true
 
   belongs_to :user
-  has_many :recipe_ingredients
-  accepts_nested_attributes_for :recipe_ingredients, reject_if: :reject_recipe_ingredients
+  has_many :recipe_ingredients, dependent: :destroy
+  accepts_nested_attributes_for :recipe_ingredients,
+    reject_if: :reject_recipe_ingredients,
+    allow_destroy: true
   attr_accessor :recipe_image
 
   private
