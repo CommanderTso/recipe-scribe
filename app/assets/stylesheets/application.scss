@@ -20,13 +20,13 @@
 
 @include mui-series {
   .slide-down-1 {
-    @include mui-queue(0.5s, 0s, slide($state: in, $direction: down, $amount: 200%))
+    @include mui-queue(0.5s, 0s, slide($state: in, $direction: down, $amount: 250%))
   }
   .slide-in-1 {
-    @include mui-queue(0.5s, 0s, slide($state: in, $direction: right, $amount: 200%));
+    @include mui-queue(0.5s, 0s, slide($state: in, $direction: right, $amount: 250%));
   }
   .slide-in-2 {
-    @include mui-queue(0.5s, 0s, slide($state: in, $direction: left, $amount: 200%));
+    @include mui-queue(0.5s, 0s, slide($state: in, $direction: left, $amount: 250%));
   }
 }
 
@@ -34,7 +34,13 @@
   border: 1px solid #d7d7d7;
   border-bottom-width: 0px;
   margin-top: 1.5rem;
+  margin-left: 2rem;
+  text-align: center;
+  padding: -10rem;
   box-shadow: 2px 4px 5px 0 #d7d7d7;
+  .small-12 {
+    padding: 10px;
+  }
   .card-content {
     background: #fff;
     // margin: 1.25rem;
@@ -53,11 +59,18 @@
       border: 1px solid #757D75;
       border-radius: 50%;
     }
+    img {
+      width: 225px;
+      height: 150px;
+    }
     img.post-icon {
       position: absolute;
       width: 3rem;
       border-radius: 50%;
       margin-top: -3rem;
+    }
+    h1, h2, h3, h4, h5 {
+      display: inline;
     }
   }
 }
@@ -109,11 +122,6 @@
 	border-right: 10px solid map-get($foundation-palette, secondary);
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid transparent;
-}
-
-.recipe-increment-total {
-  font-weight: 300;
-  font-style: $header-font-family;
 }
 
 // variables
