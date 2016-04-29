@@ -1,6 +1,5 @@
 <%= form_for @recipe do |f| %>
   <div class="row medium-6 columns">
-    <h4>Add a new recipe here:</h4>
     <div class="row">
       <%= f.label :title, "Title" %>
       <%= f.text_field :title, value: @recipe.title %>

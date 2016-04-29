@@ -23,7 +23,7 @@ feature "User inputs a recipe" do
     visit root_path
     page.find('#add_recipe').click
 
-    expect(page).to have_content "Add a new recipe here:"
+    expect(page).to have_content "Add a new recipe:"
 
     fill_in "Title", with: @title
     fill_in "Instructions", with: @instructions
@@ -51,7 +51,7 @@ feature "User inputs a recipe" do
     click_button "Save Recipe"
 
     expect(Recipe.count).to eq 0
-    expect(page).to have_content "Add a new recipe here:"
+    expect(page).to have_content "Add a new recipe:"
     expect(page).to have_content "Title can't be blank"
   end
 
@@ -59,7 +59,7 @@ feature "User inputs a recipe" do
     visit root_path
     page.find('#add_recipe').click
 
-    expect(page).to have_content "Add a new recipe here:"
+    expect(page).to have_content "Add a new recipe:"
 
     fill_in "Title", with: @title
     fill_in "Instructions", with: @instructions

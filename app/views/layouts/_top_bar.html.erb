@@ -1,16 +1,10 @@
-<div data-sticky-container>
-  <div class="small-12 sticky" data-sticky data-options="marginTop: 0">
+<div data-sticky-container >
+  <div class="small-12 sticky slide-down-1" data-sticky data-options="marginTop: 0">
     <div class="top-bar" id="top-bar">
       <div class="top-bar-left">
-        <ul class="dropdown menu" data-dropdown-menu>
-          <li class="menu-text"><h4><%= link_to "Recipe Scribe", root_path %></h4></li>
-          <li><%= link_to "Add Recipe", new_recipe_path, id: "add_recipe" %></li>
-        </ul>
-      </div>
-      <div class="top-bar-right">
         <ul class="menu">
-          <li><input type="search" placeholder="Search"></li>
-          <li><button type="button" class="button">Search</button></li>
+          <li class="website-main-link menu-text"><h2><%= link_to "Recipe Scribe", root_path %></h2></li>
+          <li><%= link_to "Add Recipe", new_recipe_path, id: "add_recipe" %></li>
         </ul>
       </div>
       <div class="top-bar-right">
