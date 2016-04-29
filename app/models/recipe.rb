@@ -4,6 +4,11 @@ class Recipe < ActiveRecord::Base
   validates :user, presence: true
 
   belongs_to :user
+  #TODO - The order of the next two statements matters A LOT
+  # If they are switched, ingredients gets deleted before
+  # increments can de-increment itself from the shopping list_items
+  # Need to find a way around this that is more future-proof
+  has_many :recipe_increments, dependent: :destroy
   has_many :recipe_ingredients, dependent: :destroy
   accepts_nested_attributes_for :recipe_ingredients,
     reject_if: :reject_recipe_ingredients,

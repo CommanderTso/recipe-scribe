@@ -4,6 +4,8 @@ class RecipeIncrement < ActiveRecord::Base
 
   validates_presence_of :shopping_list, :recipe
 
+  before_destroy 'self.remove_from_shopping_list'
+
   def update_quantity(direction)
     if direction == "add"
       self.quantity += 1
@@ -24,5 +26,13 @@ class RecipeIncrement < ActiveRecord::Base
       end
     end
     collection
+  end
+
+  def remove_from_shopping_list
+    recipe = Recipe.find(recipe_id)
+    action = "remove"
+    quantity.times do
+      self.shopping_list.update_list_items(recipe, action)
+    end
   end
 end
