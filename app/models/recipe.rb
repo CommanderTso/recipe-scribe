@@ -8,9 +8,14 @@ class Recipe < ActiveRecord::Base
   accepts_nested_attributes_for :recipe_ingredients,
     reject_if: :reject_recipe_ingredients,
     allow_destroy: true
+  after_initialize :init
   attr_accessor :recipe_image
 
   private
+
+  def init
+    self.image_url = "https://storage.googleapis.com/recipe-scribe/recipe_images/food-icon.svg" if self.image_url.blank?
+  end
 
   def reject_recipe_ingredients(attributed)
     attributed['quantity'].blank? || attributed['measurement_unit_id'].blank? || attributed['ingredient_id'].blank?

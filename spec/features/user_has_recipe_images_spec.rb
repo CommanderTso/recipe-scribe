@@ -25,7 +25,7 @@ feature "User adds an image to recipe" do
     visit root_path
     page.find('#add_recipe').click
 
-    expect(page).to have_content "Add a new recipe here:"
+    expect(page).to have_content "Add a new recipe:"
 
     fill_in "Title", with: "A Tale of Two Bagels"
     attach_file "Upload Recipe Image", "spec/resources/test.txt"
