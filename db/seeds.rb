@@ -8,7 +8,6 @@ Ingredient.find_or_create_by!(name: "Milk")
 Ingredient.find_or_create_by!(name: "Salt")
 Ingredient.find_or_create_by!(name: "Scallions")
 
-
 lbs = MeasurementUnit.find_or_create_by!(name: "lbs.")
 loaves = MeasurementUnit.find_or_create_by!(name: "loaves")
 pints = MeasurementUnit.find_or_create_by!(name: "pints")
