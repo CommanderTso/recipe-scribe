@@ -1,10 +1,21 @@
 potatoes = Ingredient.find_or_create_by!(name: "Potatoes")
 bread = Ingredient.find_or_create_by!(name: "Bread")
 strawberries = Ingredient.find_or_create_by!(name: "Strawberries")
+Ingredient.find_or_create_by!(name: "Asparagus")
+Ingredient.find_or_create_by!(name: "Proscuttio")
+Ingredient.find_or_create_by!(name: "Eggs")
+Ingredient.find_or_create_by!(name: "Milk")
+Ingredient.find_or_create_by!(name: "Salt")
+Ingredient.find_or_create_by!(name: "Scallions")
+
 
 lbs = MeasurementUnit.find_or_create_by!(name: "lbs.")
 loaves = MeasurementUnit.find_or_create_by!(name: "loaves")
 pints = MeasurementUnit.find_or_create_by!(name: "pints")
+MeasurementUnit.find_or_create_by!(name: "tbsps")
+MeasurementUnit.find_or_create_by!(name: "pints")
+MeasurementUnit.find_or_create_by!(name: "tsps")
+MeasurementUnit.find_or_create_by!(name: "bunch")
 
 user_1 = User.find_by(email: "abc@abc.com")
 unless user_1.present?
