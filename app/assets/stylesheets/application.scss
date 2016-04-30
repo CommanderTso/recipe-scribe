@@ -30,7 +30,12 @@
   }
 }
 
+.recipe-show {
+  text-align: center;
+}
+
 .article-card {
+  background: $white;
   border: 1px solid #d7d7d7;
   border-bottom-width: 0px;
   margin-top: 1.5rem;
