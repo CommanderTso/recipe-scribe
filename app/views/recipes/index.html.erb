@@ -1,18 +1,19 @@
 <div class="medium-6 columns float-left ">
   <% if !@recipes.empty? %>
     <% @recipes.each do |recipe| %>
-      <div class="small-12 columns end slide-in-1 recipe_card_margin article-card">
+      <div class="medium-10 large-5 columns end slide-in-1 article-card">
         <article class="card-content">
+          <div class="column small-12">
+            <%= link_to(recipe_path(recipe.id), id: "recipe-link-#{recipe.id}") do %>
+              <%= image_tag recipe.image_url %>
+            <% end %>
+          </div>
+          <div class="column small-12">
             <h4><%= recipe.title %></h4>
-          <div class="column small-4">
-            <%= image_tag recipe.image_url, size: "150x150" %>
           </div>
-          <div class="column small-4">
-            <%= link_to "Recipe Details", recipe_path(recipe.id), id: "recipe-link-#{recipe.id}" %>
-          </div>
-          <div class="column small-4">
+          <div class="column small-12">
             <a href="/changelist" class="left-arrow list-change" id="list-remove-<%= recipe.id %>">Remove</a>
-            <span class="recipe-increment-total" id="list-buying-total-<%= recipe.id %>"><%= @recipe_increments[recipe.id] || 0 %></span>
+            <h5 class="recipe-increment-total" id="list-buying-total-<%= recipe.id %>"><%= @recipe_increments[recipe.id] || 0 %></h4>
             <a href="/changelist" class="right-arrow list-change" id="list-add-<%= recipe.id %>">Add</a>
           </div>
         </article>

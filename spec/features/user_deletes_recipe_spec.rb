@@ -39,6 +39,20 @@ feature "User deletes a recipe" do
     expect(page).to have_content "Let's enter your first recipe!"
   end
 
-  xscenario "Need test for cascading deletion of recipe ingredients" do
+  scenario "Need test for cascading deletion of related recipe records", js: true do
+    visit root_path
+    click_link "list-add-#{@recipe.id}"
+
+    expect(page.find("#shopping_list")).to have_content("2 lbs of Potatoes")
+
+    visit recipe_path(@recipe)
+    click_link_or_button "Delete"
+
+    expect(current_path).to eq(recipes_path)
+    expect(page).to have_content "Let's enter your first recipe!"
+    
+    expect(RecipeIngredient.all.count).to eq(0)
+    expect(@user.shopping_list.recipe_increments.count).to eq(0)
+    expect(@user.shopping_list.list_items.count).to eq(0)
   end
 end

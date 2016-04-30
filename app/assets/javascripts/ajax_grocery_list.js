@@ -1,10 +1,10 @@
 $(document).ready(function() {
   $('a.list-change').click(function(event) {
     event.preventDefault();
-    
+
     var action = event.target.id.split("-")[1]
     var recipe_id = event.target.id.split("-")[2]
-    var current_increment = parseInt($('span#list-buying-total-' + recipe_id).text(), 10);
+    var current_increment = parseInt($('h5#list-buying-total-' + recipe_id).text(), 10);
     var new_value = 0;
 
     if (current_increment === 0 && action === "remove") {
@@ -19,7 +19,7 @@ $(document).ready(function() {
       new_value = 0
     }
 
-    $('span#list-buying-total-' + recipe_id).text(new_value);
+    $('h5#list-buying-total-' + recipe_id).text(new_value);
 
     var request = $.ajax({
 			method: 'POST',

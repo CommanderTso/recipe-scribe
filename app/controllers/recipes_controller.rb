@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   def index
     shopping_list = current_user.shopping_list
 
-    @recipes = Recipe.where(user: current_user)
+    @recipes = Recipe.where(user: current_user).order(updated_at: :desc)
     @list_items = shopping_list.list_items
 
     @recipe_increments = RecipeIncrement.all_for_shopping_list(shopping_list)

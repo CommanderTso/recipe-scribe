@@ -45,7 +45,6 @@ feature "User creates a shopping list" do
       quantity: 5
     )
     @recipe_2.save
-
   end
 
   scenario "User adds then removes a new ingredient", js: true do

@@ -1,20 +1,16 @@
-<p>
-  <%= image_tag @recipe.image_url %>
-</p>
-<p>
-  <h5><%= @recipe.title %></h5>
-</p>
-<p>
-  <%= @recipe.instructions %>
-</p>
-<p>
-  <ul>
-    <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
-      <li><%= recipe_ingredient.to_s %></li>
-    <% end %>
-  </ul>
-</p>
-
-
-<%= button_to "Delete", @recipe, method: :delete %>
-<%= link_to "Edit", edit_recipe_path(@recipe.id) %>
+<div class="row">
+  <div class="columns small-3 small-centered" class="recipe-show">
+      <h3><%= @recipe.title %></h3>
+      <%= image_tag @recipe.image_url, size: "225x150" %>
+      <%= @recipe.instructions %>
+      <ul>
+        <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+          <li><%= recipe_ingredient.to_s %></li>
+        <% end %>
+      </ul>
+    <div class="columns small-12">
+      <%= button_to "Delete", @recipe, method: :delete %>
+      <%= link_to "Edit", edit_recipe_path(@recipe.id) %>
+    </div>
+  </div>
+</div>

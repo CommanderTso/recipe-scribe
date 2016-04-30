@@ -17,6 +17,9 @@
       <div class="flash_notice success callout" data-closable>
         <% flash.each do |_key, value| %>
           <%= value %>
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
         <% end %>
       </div>
     <% end %>
