@@ -50,7 +50,7 @@ feature "User deletes a recipe" do
 
     expect(current_path).to eq(recipes_path)
     expect(page).to have_content "Let's enter your first recipe!"
-    
+
     expect(RecipeIngredient.all.count).to eq(0)
     expect(@user.shopping_list.recipe_increments.count).to eq(0)
     expect(@user.shopping_list.list_items.count).to eq(0)
