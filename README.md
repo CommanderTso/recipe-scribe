@@ -5,10 +5,6 @@ README
 [![Code Climate](https://codeclimate.com/github/CommanderTso/recipe-scribe/badges/gpa.svg)](https://codeclimate.com/github/CommanderTso/recipe-scribe)
 [![Coverage Status](https://coveralls.io/repos/github/CommanderTso/recipe-scribe/badge.svg?branch=master)](https://coveralls.io/github/CommanderTso/recipe-scribe?branch=master)
 
-Installation Instructions
----
-
-
 What is Recipe Scribe?
 ---
 
