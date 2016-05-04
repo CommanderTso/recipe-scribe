@@ -26,12 +26,10 @@ To install the app:
 
 Setting Up API keys
 ---
-Recipe Scribe requires API keys be set up for Google Storage, which is used to store and serve recipe images. The app is currently set up to expect a .env file (using the dotenv gem) in the app root directory, which should contain values for:
+Recipe Scribe requires API keys be set up for Google Storage, which is used to store and serve recipe images. The keys must let the app access a bucket to store and serve files. The app is currently set up to expect a `.env` file (using the dotenv gem) in the app root directory, which should contain values for:
 * `GOOGLE_ACCESS_KEY`
 * `GOOGLE_SECRET_ACCESS_KEY`
 * `GOOGLE_BUCKET_NAME`
-
-The app expects the bucket to have public read access in order to serve photos.
 
 For a production environment, please reference how your server setup expects to access API keys and secrets.
 
