@@ -95,10 +95,12 @@ feature "User creates a shopping list" do
     expect(page.find("#list-buying-total-#{@recipe.id}")).to have_content(2)
   end
 
-  scenario "Reducing a recipe's increment below zero does nothing", js: true do
+  scenario "Reducing a recipe's increment below zero does nothing", js: true, focus: true do
     visit "/"
 
     click_link "list-add-#{@recipe.id}"
+
+    save_and_open_page
 
     expect(page.find("#shopping_list")).to have_content("2 bunches of bananas")
     expect(page.find("#shopping_list")).to have_content("2 cans of whipped cream")
