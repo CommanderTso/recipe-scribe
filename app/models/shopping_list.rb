@@ -33,5 +33,4 @@ class ShoppingList < ActiveRecord::Base
 
     recipe_increment.update_quantity(action)
   end
-
 end

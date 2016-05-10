@@ -4,7 +4,7 @@ class Recipe < ActiveRecord::Base
   validates :user, presence: true
 
   belongs_to :user
-  #TODO - The order of the next two statements matters A LOT
+  # TODO - The order of the next two statements matters A LOT
   # If they are switched, ingredients gets deleted before
   # increments can de-increment itself from the shopping list_items
   # Need to find a way around this that is more future-proof
